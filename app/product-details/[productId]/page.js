@@ -1,0 +1,52 @@
+'use client'
+
+
+import BreadCrumb from '../../_components/BreadCrumb'
+import ProductApi from '../../_utils/ProductApi'
+import React,{useEffect,useState} from 'react'
+import ProductBanner from './_components/ProductBanner'
+import ProductInfo from './_components/ProductInfo'
+import ProductList from '../../_components/ProductList'
+import { usePathname } from 'next/navigation'
+
+const page = ({params}) => {
+    
+    const [productDetails,setProductDetails] = useState({})
+    const [categoryList,setCategoryList] = useState([])
+    const path = usePathname();
+
+    useEffect(()=>{
+        getProductById_()
+        
+    },[])
+    const getProductById_ = async ()=>{
+        await ProductApi.getProductById(params.productId).then((res)=>{
+            console.log(res.data.data)
+            setProductDetails(res?.data?.data)
+            getProductListByCategory(res?.data?.data)
+        })
+    }
+    const getProductListByCategory = (product)=>{
+        ProductApi.getProductsByCategory(product?.attributes?.category).then((res)=>setCategoryList(res?.data?.data))
+    }
+
+    return (
+        <div className='px-10 py-8 md:px-28 bg-[rgba(24,36,65,0.76)]'>
+            <BreadCrumb path={path}/>
+            <div className='grid grid-cols-2 max-[768px]:grid-cols-1 gap-10 mt-6'>
+                {
+                    productDetails ? <>
+                    <ProductBanner product={productDetails}/>
+                    <ProductInfo product={productDetails}/>
+                    </> : <h2>Loading</h2> 
+                }
+            </div>
+            <div>
+                <h2 className='mt-20 text-xl mb-6'>Similar products</h2>
+                <ProductList productList={categoryList}/>
+            </div>
+        </div>
+    )
+}
+
+export default page
