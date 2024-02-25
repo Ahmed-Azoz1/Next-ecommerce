@@ -1,15 +1,20 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { UserButton, useUser } from '@clerk/nextjs'
 import { ShoppingCart } from 'lucide-react'
+import { CartContext } from '../_context/CartContext'
+import CartApi from '../_utils/CartApi'
+import Cart from './Cart'
+
 
 // <Image src='/logo.svg' alt='logo' width={50} height={50}/>
 // Home Explore Projects About Us Contact Us Blog primary
 
 const Header = () => {
 
+    const{cart,setCart} = useContext(CartContext)
     const {user} = useUser();
 
     const [isLoggedIn,setIsLoggedIn] = useState(false);
@@ -17,6 +22,33 @@ const Header = () => {
     useEffect(()=>{
         setIsLoggedIn(window.location.href.toString().includes('sign-in'))
     },[])
+
+    const getCartItems = ()=>{
+        CartApi.getUserCartItems(user.primaryEmailAddress.emailAddress).then(res=>{
+            console.log('response item',res?.data?.data)
+
+            const Items = res?.data?.data
+
+            Items.forEach(item=>{
+                setCart((oldCart)=>[
+                    ...oldCart,
+                    {
+                        id:item.id,
+                        product: item.attributes?.products?.data[0]
+                    }
+                ])
+            })
+
+            
+        })
+    }
+
+    useEffect(()=>{
+        user&& getCartItems();
+    },[user])
+
+    const [openCart,setOpenCart] = useState(false);
+
     
     return !isLoggedIn && (
         <header className="bg-white dark:bg-gray-900">
@@ -108,9 +140,13 @@ const Header = () => {
                         </div>
                         </div>
                         :
-                        <div className='flex items-center gap-5'>
-                            <p className='flex gap-2 cursor-pointer'><ShoppingCart />(0)</p>
+                        <div className='flex items-center gap-5 relative'>
+                            <p onClick={()=>setOpenCart(!openCart)} className='flex gap-2 cursor-pointer'>
+                                <ShoppingCart />({cart?.length})
+                            </p>
                             <UserButton  afterSignOutUrl='/'/>
+                            
+                            {openCart && <Cart /> }
                         </div>
                     }
                 
