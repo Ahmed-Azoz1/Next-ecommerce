@@ -38,7 +38,7 @@ const CheckoutForm = ({amount}) => {
     }
 
     createOrder();
-
+    sendEmail();
     // Trigger form validation and wallet collection
     const {error: submitError} = await elements.submit();
     if (submitError) {
@@ -94,6 +94,14 @@ const CheckoutForm = ({amount}) => {
                     CartApi.deleteCartItem(el?.id).then(res=>{})
                 })
             }
+        })
+    }
+
+
+    const sendEmail = async()=>{
+        const res = await fetch('api/send-email',{
+            method:'POST',
+            
         })
     }
 
