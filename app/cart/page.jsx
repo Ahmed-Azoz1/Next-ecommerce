@@ -4,10 +4,12 @@ import React, { useContext } from 'react'
 import { CartContext } from '../_context/CartContext'
 import Image from 'next/image'
 import CartApi from '../_utils/CartApi'
+import { useRouter } from 'next/navigation'
 
 const page = () => {
 
     const {cart,setCart} = useContext(CartContext)
+    const router = useRouter();
 
     const getTotalAmount = ()=>{
         let totalAmount = 0;
@@ -36,9 +38,9 @@ const page = () => {
                     <ul className="space-y-4">
 
                     {
-                        cart?.map((item,index)=>{
+                        cart?.map((item)=>{
                             return(
-                                <li className="flex items-center gap-4" key={index}>
+                                <li className="flex items-center gap-4" key={item?.id}>
 
                                     <Image className='rounded object-cover' width={120} height={120} alt='item' src={item?.product?.attributes?.Banner?.data?.attributes?.url}/>
 
@@ -82,25 +84,26 @@ const page = () => {
                     </ul>
 
                     <div className="mt-8 flex justify-end border-t border-gray-100 pt-8">
-                    <div className="w-screen max-w-lg space-y-4">
-                        <dl className="space-y-0.5 text-sm text-gray-100">
+                        <div className="w-screen max-w-lg space-y-4">
+                            <dl className="space-y-0.5 text-sm text-gray-100">
 
-                            <div className="flex justify-between !text-base font-medium">
-                                <dt>Total</dt>
-                                <dd>$ {getTotalAmount()}</dd>
+                                <div className="flex justify-between !text-base font-medium">
+                                    <dt>Total</dt>
+                                    <dd>$ {getTotalAmount()}</dd>
+                                </div>
+                            </dl>
+
+                            <div className="flex justify-end">
+                                <button
+                                    onClick={()=>router.push(`/checkout?amount=${getTotalAmount()}`)}
+                                    className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
+                                >
+                                    Checkout
+                                </button>
                             </div>
-                        </dl>
-
-                        <div className="flex justify-end">
-                        <a
-                            href="#"
-                            className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
-                        >
-                            Checkout
-                        </a>
                         </div>
                     </div>
-                    </div>
+                    <h2 className='text-gray-300 text-[14px]'>Note : All Items will be sent via email</h2>
                 </div>
                 </div>
             </div>
