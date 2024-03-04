@@ -21,7 +21,6 @@ const page = ({params}) => {
     },[])
     const getProductById_ = async ()=>{
         await ProductApi.getProductById(params.productId).then((res)=>{
-            console.log(res.data.data)
             setProductDetails(res?.data?.data)
             getProductListByCategory(res?.data?.data)
         })

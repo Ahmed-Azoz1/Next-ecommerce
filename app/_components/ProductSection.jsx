@@ -14,7 +14,6 @@ const ProductSection = () => {
 
     const getLatestProducts_=()=>{
         ProductApi.getLatestProducts().then(res=>{
-            console.log(res.data.data)
             setProductList(res.data.data)
         })
     }
