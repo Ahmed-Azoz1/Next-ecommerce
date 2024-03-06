@@ -33,16 +33,19 @@ const page = ({params}) => {
         <div className='px-10 py-8 md:px-28 bg-[rgba(24,36,65,0.76)]'>
             <BreadCrumb path={path}/>
             <div className='grid grid-cols-2 max-[768px]:grid-cols-1 gap-10 mt-6'>
-                {
-                    productDetails ? <>
-                    <ProductBanner product={productDetails}/>
-                    <ProductInfo product={productDetails}/>
-                    </> : <h2>Loading</h2> 
-                }
+                <ProductBanner product={productDetails}/>
+                <ProductInfo product={productDetails}/>
             </div>
             <div>
                 <h2 className='mt-20 text-xl mb-6'>Similar products</h2>
-                <ProductList productList={categoryList}/>
+                {categoryList.length === 0 ? 
+                <div className='grid gap-4 grid-cols-4 max-[425px]:grid-cols-1 max-[768px]:grid-cols-2 max-[1024px]:grid-cols-3'>
+                    <div className='w-[100%] h-[270px] bg-slate-600 rounded-lg animate-pulse'></div>
+                    <div className='w-[100%] h-[270px] bg-slate-600 rounded-lg animate-pulse'></div>
+                    <div className='w-[100%] h-[270px] bg-slate-600 rounded-lg animate-pulse'></div>
+                    <div className='w-[100%] h-[270px] bg-slate-600 rounded-lg animate-pulse'></div>
+                </div> : 
+                <ProductList productList={categoryList} />}
             </div>
         </div>
     )
