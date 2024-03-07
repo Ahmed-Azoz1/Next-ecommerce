@@ -27,7 +27,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "app/_components/email-template.jsx"  ],
+, "app/_components/email-template.jsx", "app/product-details/[productId]/page.js"  ],
   "exclude": [
     "node_modules"
   ]

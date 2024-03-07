@@ -1,30 +1,20 @@
-'use client'
+import Layout from './layout';
+import Favicon from '/public/logo-1.png';
 
-import React from 'react'
-import {Elements} from '@stripe/react-stripe-js';
-import {loadStripe} from '@stripe/stripe-js';
-import CheckoutForm from './_components/CheckoutForm'
-import { useSearchParams } from 'next/navigation';
-
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHER_KEY)
+export const metadata = {
+    title: "Checkout",
+    generator: 'Next.js',
+    description: 'My Store by create next app',
+    keywords: ['Next.js', 'React', 'JavaScript'],
+    creator: 'Ahmed Azouz',
+    publisher: 'Ahmed Azouz',
+    icons: [{ rel: 'icon', url: Favicon.src }],
+};
 
 const page = () => {
-
-
-    const searchParms = useSearchParams();
-
-    const options = {
-        mode:'payment',
-        currency:'usd',
-        amount:Number(searchParms.get('amount')) * 100 || 100
-    }
-
     return (
         <>
-        <Elements stripe={stripePromise} options={options}>
-            <CheckoutForm  amount={Number(searchParms.get('amount'))}/>
-        </Elements>
+            <Layout />
         </>
     )
 }

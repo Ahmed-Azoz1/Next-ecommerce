@@ -2,7 +2,15 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-
+export const metadata = {
+    title: "Product",
+    generator: 'Next.js',
+    description: 'My Store by create next app',
+    keywords: ['Next.js', 'React', 'JavaScript'],
+    creator: 'Ahmed Azouz',
+    publisher: 'Ahmed Azouz',
+    icons: [{ rel: 'icon', url: Favicon.src }],
+};
 
 
 const page = () => {

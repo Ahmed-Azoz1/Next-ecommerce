@@ -1,6 +1,15 @@
 import { SignIn } from "@clerk/nextjs";
+import Favicon from '/public/logo-1.png';
 
-
+export const metadata = {
+    title: "SignIn",
+    generator: 'Next.js',
+    description: 'My Store by create next app',
+    keywords: ['Next.js', 'React', 'JavaScript'],
+    creator: 'Ahmed Azouz',
+    publisher: 'Ahmed Azouz',
+    icons: [{ rel: 'icon', url: Favicon.src }],
+};
 
 export default function Page() {
   return (
