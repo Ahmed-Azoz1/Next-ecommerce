@@ -1,6 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import Favicon from '/public/logo-1.png';
+
 
 export const metadata = {
     title: "Product",
