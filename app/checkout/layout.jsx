@@ -17,7 +17,7 @@ const Layout = () => {
     const options = {
         mode:'payment',
         currency:'usd',
-        amount:Number(searchParms.get('amount')) * 100 || 100
+        amount:Number(searchParms?.get('amount')) * 100 || 100
     }
 
     return (
