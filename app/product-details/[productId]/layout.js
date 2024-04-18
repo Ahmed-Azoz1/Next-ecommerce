@@ -8,13 +8,15 @@ import ProductInfo from './_components/ProductInfo'
 import ProductList from '../../_components/ProductList'
 import { usePathname } from 'next/navigation'
 
+
 const Layout = ({params}) => {
     
     const [productDetails,setProductDetails] = useState({})
     const [categoryList,setCategoryList] = useState([])
     const path = usePathname();
 
-    useEffect(()=>{
+    
+    useEffect(()=>{ 
         getProductById_()
     },[])
     const getProductById_ = async ()=>{

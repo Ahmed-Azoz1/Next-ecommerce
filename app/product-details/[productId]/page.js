@@ -2,6 +2,7 @@ import Layout from './layout'
 import Favicon from '/public/logo-1.png';
 
 
+
 export const metadata = {
     title: "Product",
     generator: 'Next.js',
